@@ -1,6 +1,26 @@
 [
-    {
-        "title":"Test Title",
-        "text":"Test text"
-    }
+  {
+    "title": "Test Title",
+    "text": "Test text"
+  },
+  {
+    "title": "New Note test",
+    "text": "ansl;kseijg'eoj",
+    "id": "1"
+  },
+  {
+    "title": "new notes 2",
+    "text": ";isgjh;isdjg\n",
+    "id": "2"
+  },
+  {
+    "title": "Test Title 4",
+    "text": "Test text 4",
+    "id": "3"
+  },
+  {
+    "title": "test 5",
+    "text": "hellp hellp\n",
+    "id": "4"
+  }
 ]
