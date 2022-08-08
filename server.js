@@ -1,10 +1,9 @@
 const express = require('express');
+const app = express();
 const notes = require('./db/db.json');
 const path = require('path');
-const createNote = require('./lib/notes');
 const fs = require('fs');
-const { application } = require('express');
-const app = express();
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -48,19 +47,18 @@ app.delete('/api/notes/:id', (req, res) => {
                    console.log('this file was written');
                 });   
             }
-
         });
-        
         const response = {
             status: 'sucess',
             body: result,
-        }
+            }
         console.log('response', response)
         res.json(response);
     } else {
         res.json('Error in deleting a note');
     }
-})
+});
+
 app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request recieved to add a note`);
     console.log('req.body', req.body);
@@ -70,7 +68,7 @@ app.post('/api/notes', (req, res) => {
             title,
             text,
             id: notes.length.toString()
-        }
+            }
         fs.readFile('./db/db.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
@@ -82,23 +80,18 @@ app.post('/api/notes', (req, res) => {
                     if (err) throw err;
                     console.log('this file was written');
                 }); 
-                    
-                
             }
-
         });
-        
         const response = {
             status: 'sucess',
             body: newNote,
-        }
+            }
         console.log('response', response)
         res.json(response);
     } else {
         res.json('Error in adding a note');
     }
-
-})
+});
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
