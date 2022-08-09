@@ -36,7 +36,7 @@ app.delete('/api/notes/:id', (req, res) => {
     if (req.params.id){
         fs.readFile('./db/db.json', 'utf8', (err, data) => {
             if (err) {
-                console.error(err);
+                console.error('There was an error reading the file', err);
             } else{
                 let noteList = JSON.parse(data);
                 noteList = noteList.filter(note => note.id !== req.params.id);
@@ -67,7 +67,7 @@ app.post('/api/notes', (req, res) => {
             }
         fs.readFile('./db/db.json', 'utf8', (err, data) => {
             if (err) {
-                console.error(err);
+                console.error('There was an error reading the file', err);
             } else{
                 const noteList = JSON.parse(data);
                 

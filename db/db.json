@@ -1,12 +1,12 @@
 [
   {
-    "title": "1",
-    "text": "1",
-    "id": "8ca642f6-5ad5-49f6-9064-85bdcda97af9"
+    "title": "Test",
+    "text": "This is a test note",
+    "id": "b707258b-aebd-4b35-89df-2e092cb2991f"
   },
   {
-    "title": "2",
-    "text": "2",
-    "id": "8fea1f65-b9f2-4c91-bebf-d27a51e54006"
+    "title": "Car battery",
+    "text": "Take the car to the shop to get the battery tested/replaced if needed.",
+    "id": "9ca9ff47-95c8-4d30-ad3d-8964bb59ffc3"
   }
 ]
