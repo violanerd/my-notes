@@ -3,6 +3,7 @@ const app = express();
 const notes = require('./db/db.json');
 const path = require('path');
 const fs = require('fs');
+const {v4: uuidv4} = require('uuid');
 
 
 const PORT = process.env.PORT || 3000;
@@ -31,43 +32,38 @@ app.get('/api/notes', (req, res) => {
 })})
 
 app.delete('/api/notes/:id', (req, res) => {
-    console.log(`${req.method} request to see the notes`);
-    const result = notes.filter(note => note.id === req.params.id)[0];
-    console.log('delete result', result);
-    if (result){
+    console.log(`${req.method} request to delete a note`);
+    if (req.params.id){
         fs.readFile('./db/db.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
             } else{
                 let noteList = JSON.parse(data);
                 noteList = noteList.filter(note => note.id !== req.params.id);
-                console.log('notelist after splice', noteList);
                 fs.writeFile(path.join(__dirname, './db/db.json'), JSON.stringify(noteList, null, 2), (err) => {
                    if (err) throw err;
-                   console.log('this file was written');
                 });   
             }
         });
         const response = {
-            status: 'sucess',
-            body: result,
+            status: 'note deleted',
+            body: req.params.id,
             }
-        console.log('response', response)
+        console.log('response', response);
         res.json(response);
     } else {
-        res.json('Error in deleting a note');
+        res.json({message: 'Error in deleting a note'});
     }
 });
 
 app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request recieved to add a note`);
-    console.log('req.body', req.body);
     const { title, text } = req.body;
     if (title && text) {
         const newNote = {
             title,
             text,
-            id: notes.length.toString()
+            id: uuidv4()
             }
         fs.readFile('./db/db.json', 'utf8', (err, data) => {
             if (err) {
@@ -78,18 +74,18 @@ app.post('/api/notes', (req, res) => {
                 noteList.push(newNote);
                 fs.writeFile(path.join(__dirname, './db/db.json'), JSON.stringify(noteList, null, 2), (err) => {
                     if (err) throw err;
-                    console.log('this file was written');
+                    console.log('note added to file');
                 }); 
             }
         });
         const response = {
-            status: 'sucess',
+            status: 'note added',
             body: newNote,
             }
-        console.log('response', response)
+        console.log('response', response);
         res.json(response);
     } else {
-        res.json('Error in adding a note');
+        res.json({message: 'Error in adding a note'});
     }
 });
 
